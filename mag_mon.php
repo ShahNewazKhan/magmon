@@ -16,9 +16,10 @@ while(true){
 
 	if( ping() ){
 		//$stringData = "File updated at: " . time(). "\n";
-		$stringData = "Server is UP! \n";
+		$stringData = "Server is UP \n";
+		echo "HELLO";
 	}else{
-		$stringData = "Server is DOWN! \n";
+		$stringData = "Server is DOWN \n";
 	}
 	 
 	
