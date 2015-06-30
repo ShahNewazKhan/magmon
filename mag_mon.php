@@ -1,33 +1,48 @@
 <?php
 
 	// The worker will execute every X seconds:
-	$seconds = 2;
+	$seconds = 1;
 
 	// We work out the micro seconds ready to be used by the 'usleep' function.
-	$micro = $seconds * 1000000;
+	$micro = $seconds * 100000;
 
 while(true){
 	
 	// This is the code you want to loop during the service...
-	$logFile = "/home/sparqy/daemontest.txt";
+	$logFile = "/home/sparqy/daemontest2.txt";
+	
+
 	$fh = fopen($logFile, 'a') or die("Can't open file");
-	$stringData = "File updated at: " . time(). "\n";
+
+	if( ping() ){
+		//$stringData = "File updated at: " . time(). "\n";
+		$stringData = "Server is UP! \n";
+	}else{
+		$stringData = "Server is DOWN! \n";
+	}
+	 
+	
 	fwrite($fh, $stringData);
 	fclose($fh);
-
-	/* check if the host is up
-        $host can also be an ip address */
-	$host = 'www.example.com';
-	$up = ping($host);
 
 	// Now before we 'cycle' again, we'll sleep for a bit...
 	usleep($micro);
 }
 
-function ping($host)
+function ping()
 {
-        exec(sprintf('ping -c 1 -W 5 %s', escapeshellarg($host)), $res, $rval);
-        return $rval === 0;
+    $file = 'http://localhost:12345/';
+	
+	$file_headers = @get_headers($file);
+	
+	if($file_headers[0] == 'HTTP/1.0 500 Internal Server Error') {
+    	$exists = false;
+	}
+	else {
+    	$exists = true;
+	}
+
+	return $exists;
 }
 
 
