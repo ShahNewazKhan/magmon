@@ -4,7 +4,7 @@ A php daemon for Ubuntu to log the status of Magnificent Server
 
 #What is it for?
 
-I have written magmon to monitor the health of Magnificent Server on an Ubuntu machine. I used used Ubuntu's internal event-based tool Upstart (http://upstart.ubuntu.com/getting-started.html GPL license) to run a PHP script as a service as descriped below in the Run the service section.
+I have written magmon to monitor the health of Magnificent Server on an Ubuntu machine. I used Ubuntu's internal event-based tool Upstart (http://upstart.ubuntu.com/getting-started.html GPL license) to run a PHP script as a service as descriped below in the Run the service section.
 
 When run, the service will output the status of the server (Server is UP if 200 OK || Server is Down if 500) in a log file you can specify.
 
