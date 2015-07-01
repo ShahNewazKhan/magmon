@@ -1,27 +1,22 @@
 <?php
 
-	// The worker will execute every X seconds:
+	// worker will execute every X seconds:
 	$seconds = 1;
 
-	// We work out the micro seconds ready to be used by the 'usleep' function.
-	$micro = $seconds * 100000;
+	// micro seconds ready to be used by the 'usleep' function.
+	$micro = $seconds * 1000000;
 
 while(true){
 	
-	// This is the code you want to loop during the service...
-	$logFile = "/home/sparqy/daemontest2.txt";
-	
+	$logFile = "/home/sparqy/magmon_log.txt";
 
 	$fh = fopen($logFile, 'a') or die("Can't open file");
 
 	if( ping() ){
-		//$stringData = "File updated at: " . time(). "\n";
-		$stringData = "Server is UP \n";
-		echo "HELLO";
+		$stringData = "Server is UP @ " . date("h:i:sa") . "\n";
 	}else{
-		$stringData = "Server is DOWN \n";
+		$stringData = "Server is DOWN @ " . date("h:i:sa") . "\n";
 	}
-	 
 	
 	fwrite($fh, $stringData);
 	fclose($fh);
